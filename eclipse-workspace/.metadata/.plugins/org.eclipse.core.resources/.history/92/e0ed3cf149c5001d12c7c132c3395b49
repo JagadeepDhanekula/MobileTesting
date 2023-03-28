@@ -1,0 +1,43 @@
+package Appium;
+
+import java.net.MalformedURLException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.remote.MobileCapabilityType;
+
+public class AppiumBasics extends BaseTest {
+	
+
+	@Test
+	public void WifiSettingName() throws MalformedURLException, InterruptedException 
+	{
+	
+		DesiredCapabilities caps=new DesiredCapabilities();
+		//other desired caps
+		//add the following line
+		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 3000);
+		//then define your driver here
+		
+		driver.findElement(AppiumBy.accessibilityId("Preference")).click();
+		driver.findElement(By.xpath("//android.widget.TextView[@content-desc='3. Preference dependencies']")).click();
+		driver.findElement(By.id("android:id/checkbox")).click();
+		driver.findElement(By.xpath("(//android.widget.RelativeLayout)[2]")).click();
+		
+		String alertTitle = driver.findElement(By.id("//android:id/alertTitle")).getText();
+		Assert.assertEquals(alertTitle,"WifiSetting");
+	
+		driver.findElement(By.id("android:id/edit")).sendKeys("Jagadeep");
+		driver.findElement(By.id("android:id/button1")).click();
+		
+	}
+
+	
+
+
+}
